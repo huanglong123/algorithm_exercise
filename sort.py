@@ -66,3 +66,44 @@ def bubble_sorted(iterable):
 
 testlist = [27, 33, 28, 4, 2, 26, 13, 35, 8, 14]
 print('sorted:', bubble_sorted(testlist))
+
+
+"""
+快速排序使用分治法（Divide and conquer）策略来把一个序列（list）分为两个子序列（sub-lists）。
+
+步骤为：
+
+1，从数列中挑出一个元素，称为"基准"（pivot），
+2，重新排序数列，所有比基准值小的元素摆放在基准前面，所有比基准值大的元素摆在基准后面（相同的数可以到任何一边）。在这个分区结束之后，该基准就处于数列的中间位置。这个称为分区（partition）操作。
+3，递归地（recursively）把小于基准值元素的子数列和大于基准值元素的子数列排序。
+"""
+# 简单版本
+def quicksort(q):
+     if len(q) < 2:
+         return q
+     else:
+         pivot = q[0]
+         less = [s for s in q if s < pivot]
+         greater = [s for s in q if s > pivot]
+         return quicksort(less) + [pivot] + quicksort(greater)
+
+print('quicksort:', quicksort([27, 33, 28, 4, 2, 26, 13, 35, 8, 14]))
+
+# 原地（in-place）分区的版本
+def quicksort(lst, lo, hi):
+    if lo < hi:
+        p = partition(lst, lo, hi)
+        quicksort(lst, lo, p)
+        quicksort(lst, p+1, hi)
+    return
+
+def partition(lst, lo, hi):
+    pivot = lst[hi-1]
+    i = lo - 1
+    for j in range(lo, hi):
+        if lst[j] < pivot:
+            i += 1
+            lst[i], lst[j] = lst[j], lst[i]
+    if lst[hi-1] < lst[i+1]:
+        lst[i+1], lst[hi-1] = lst[hi-1], lst[i+1]
+    return i+1
