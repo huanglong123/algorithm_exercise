@@ -107,3 +107,30 @@ def partition(lst, lo, hi):
     if lst[hi-1] < lst[i+1]:
         lst[i+1], lst[hi-1] = lst[hi-1], lst[i+1]
     return i+1
+
+"""
+插入排序
+
+通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入
+"""
+def insert_sort(lst):
+    n=len(lst)
+    if n==1: return lst
+    for i in range(1,n):
+        for j in range(i,0,-1):
+            if lst[j]<lst[j-1]: lst[j],lst[j-1]=lst[j-1],lst[j]
+            else:break
+    return lst
+
+def insertion_sort(lst):
+    if len(lst) == 1:
+        return lst
+
+    for i in range(1, len(lst)):
+        temp = lst[i]
+        j = i - 1
+        while j >= 0 and temp < lst[j]:
+            lst[j + 1] = lst[j]
+            j -= 1
+        lst[j + 1] = temp
+    return lst
